@@ -103,4 +103,5 @@ docker buildx imagetools inspect k8s.gcr.io/git-sync/git-sync:v3.4.0
         bash 04-setup-alb-ingress.sh
     ```
 ## Limitations
-1. The solution now supports China Amazon Cloud
+1. The solution now supports Beijing Region 
+2. The Airflow Cluster is created in the new VPC
