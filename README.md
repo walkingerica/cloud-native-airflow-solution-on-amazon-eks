@@ -63,14 +63,14 @@ docker buildx imagetools inspect k8s.gcr.io/git-sync/git-sync:v3.4.0
 ### Steps to set up Airflow cluster:
 
 1. Set up an Graviton2 EC2 bastion host, this instance has two function.
-- Build your ARM images
-- Deploy the following Airflow stack 
+  - Build your ARM images
+  - Deploy the following Airflow stack 
 
 2. Check your system requirement, prepare the relevant tools.
-- kubectl
-- eksctl 
-- helm 
-- python3
+  - kubectl
+  - eksctl 
+  - helm 
+  - python3
 
     ``` 
         bash 00-check-requirements.sh
