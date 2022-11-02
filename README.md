@@ -73,10 +73,13 @@ docker buildx imagetools inspect k8s.gcr.io/git-sync/git-sync:v3.4.0
     - eksctl 
     - helm 
     - python3
-
+  
+ Run the bash script,
+ 
     ``` 
         bash 00-check-requirements.sh
     ```
+    
 3. Preapre the AWS infrastracture, including VPC, EKS, Aurora, ElastiCache and etc. This step takes around 40 minutes.
     ``` 
         bash 01-setup-infra.sh
