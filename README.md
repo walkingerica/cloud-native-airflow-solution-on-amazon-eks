@@ -1,10 +1,12 @@
-# Graviton2-based Airflow on the Amazon Cloud 
+# Cloud Native Airflow solution on the Amazon EKS
 
-The solution is for deploying high reliable Apache Airflow(https://airflow.apache.org/) on the Amazon Cloud.  The whole stack is based on Graviton2. 
+The solution is for deploying high reliable Apache Airflow(https://airflow.apache.org/) on the Amazon EKS. Besides, the whole stack is based on Graviton2. 
 
-## Use cases
+##  Target Audience
 
-- For users who wants to accelarate the Ariflow deployment and build it in production.
+- A One-Click Ariflow Soltuion on Amazon EKS
+- A High Available and Cloud Native Soltuion
+- A Less Operation Effort solution via AWS managed service
 
 ## Technical Details
 
