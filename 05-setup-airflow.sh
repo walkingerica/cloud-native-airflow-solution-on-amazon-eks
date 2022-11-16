@@ -57,11 +57,11 @@ EOF
 
 kubectl create secret generic airflow-db \
    -n airflow \
-   --from-literal=connection=postgresql://postgres:Welcome123456@${DB_ENDPOINT}:5432/postgres
+   --from-literal=connection=postgresql://postgres:<YOUR_DATABASE_PASSWORD>@${DB_ENDPOINT}:5432/postgres
 
 kubectl create secret generic airflow-result-db \
    -n airflow \
-   --from-literal=connection=db+postgresql://postgres:Welcome123456@${DB_ENDPOINT}:5432/postgres
+   --from-literal=connection=db+postgresql://postgres:<YOUR_DATABASE_PASSWORD>@${DB_ENDPOINT}:5432/postgres
 
 kubectl create secret generic git-credentials \
   -n airflow \
