@@ -889,7 +889,7 @@ webserver:
     email: admin@example.com
     firstName: admin
     lastName: user
-    password: Welcome123456
+    password: <YOUR_AIRFLOWPASSWORD_PASSWORD>
 
   # Launch additional containers into webserver.
   extraContainers: []
