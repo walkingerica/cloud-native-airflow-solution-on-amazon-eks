@@ -129,7 +129,7 @@ db_endpoint=$(aws rds create-db-cluster --region $AWS_REGION \
   --engine aurora-postgresql \
   --engine-version 14.3 \
   --master-username postgres \
-  --master-user-password Welcome123456 \
+  --master-user-password <YOUR_DATABASE_PASSWORD> \
   --storage-encrypted \
   --vpc-security-group-ids $db_security_group_id \
   --query 'DBCluster.Endpoint' --output text)
