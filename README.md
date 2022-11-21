@@ -97,7 +97,6 @@ Please follow the follwing steps to set up Airflow Cluster.
     - python3  
     
  Run the bash script,  
-        
     ```
         bash 00-check-requirements.sh
     ```     
