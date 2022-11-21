@@ -112,7 +112,6 @@ Please follow the follwing steps to set up Airflow Cluster.
         bash 03-setup-cloudwatch.sh
     ```
 6. Set up ALB ingress, Application Load Balancer (ALB) is provisioned that load balances traffic for Airflow Web UI. 
-
     ``` 
         bash 04-setup-alb-ingress.sh
     ```
