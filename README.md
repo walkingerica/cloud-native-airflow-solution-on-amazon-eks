@@ -73,7 +73,7 @@ Finally, please install the following software on the bastion host:
 • pip3
 
 
-### Steps to set up Airflow cluster:
+### Steps to set up Airflow cluster
 
 We have prepared 6 bash scripts to deploy the Airflow environment:  
 
