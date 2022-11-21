@@ -75,14 +75,13 @@ Finally, please install the following software on the bastion host:
 
 ### Steps to set up Airflow cluster:
 
-We have prepared 6 bash scripts to deploy the Airflow environment.
-
-• 00-check-requirements.sh, checks the system environment.
-• 01-setup-infra.sh, deploy the infrastructure in this solution, such as VPC, Amazon EKS Cluster, Amazon Aurora for PostgreSQL, Amazon ElastiCache for Redis, etc.
-• 02-setup-karpenter.sh, deploy Karpenter on Amazon EKS, and dynamically expand new EC2 resources through Karpenter.
-• 03-setup-cloudwatch.sh, deploy Amazon CloudWatch related resources, Airflow logs to CloudWatch, and metrics to Container Insight.
-• 04-setup-alb-ingress.sh, which deploys an Amazon Application Load Balancer as an Apache Airflow web  ngress.
-• 05-setup-airflow.sh, deploy Apache Airflow on Amazon EKS.
+We have prepared 6 bash scripts to deploy the Airflow environment:
+• 00-check-requirements.sh, checks the system environment
+• 01-setup-infra.sh, deploy the infrastructure in this solution, such as VPC, Amazon EKS Cluster, Amazon Aurora for PostgreSQL, Amazon ElastiCache for Redis, etc
+• 02-setup-karpenter.sh, deploy Karpenter on Amazon EKS, and dynamically expand new EC2 resources through Karpenter
+• 03-setup-cloudwatch.sh, deploy Amazon CloudWatch related resources, Airflow logs to CloudWatch, and metrics to Container Insight
+• 04-setup-alb-ingress.sh, which deploys an Amazon Application Load Balancer as an Apache Airflow web ingress
+• 05-setup-airflow.sh, deploy Apache Airflow on Amazon EKS
 
 Please follow the follwing steps to set up Airflow Cluster.
 
