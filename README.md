@@ -96,10 +96,12 @@ Please follow the follwing steps to set up Airflow Cluster.
     - helm 
     - python3  
     
- Run the bash script,  
-    ```
+   Run the bash script,  
+   
+     ```
         bash 00-check-requirements.sh
-    ```     
+     ```     
+     
 3. Preapre the AWS infrastracture, including VPC, EKS, Aurora, ElastiCache and etc. This step takes around 40 minutes. Before running this script, please change Aurora password in line 132.  
       
     ```   
