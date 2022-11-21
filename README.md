@@ -52,10 +52,10 @@ The architecture details:
 ## How to deploy
 ### Prerequisites
 
-First, preparing ARM-based Docker images. You can start a Graviton2 EC2 instance as a bastion host. This instance has two functions, building your ARM images and deploying the following scripts. We have prepared the docker image's built scripts in the docker path.
-• Airflow, version 2.3.4
-• KEDA, version 2.0.0
-• PgBouncer, version 1.14.0
+First, preparing ARM-based Docker images. You can start a Graviton2 EC2 instance as a bastion host. This instance has two functions, building your ARM images and deploying the following scripts. We have prepared the docker image's built scripts in the docker path.  
+• Airflow, version 2.3.4  
+• KEDA, version 2.0.0  
+• PgBouncer, version 1.14.0  
 
 For the Git-Sync, we donot prepare this, you can use the official Arm-Based image.If you are using MacOX, you can use the following command to check the image 
 ```
