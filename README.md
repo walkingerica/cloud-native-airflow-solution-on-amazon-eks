@@ -75,13 +75,13 @@ Finally, please install the following software on the bastion host:
 
 ### Steps to set up Airflow cluster:
 
-We have prepared 6 bash scripts to deploy the Airflow environment:
-• 00-check-requirements.sh, checks the system environment
-• 01-setup-infra.sh, deploy the infrastructure in this solution, such as VPC, Amazon EKS Cluster, Amazon Aurora for PostgreSQL, Amazon ElastiCache for Redis, etc
-• 02-setup-karpenter.sh, deploy Karpenter on Amazon EKS, and dynamically expand new EC2 resources through Karpenter
-• 03-setup-cloudwatch.sh, deploy Amazon CloudWatch related resources, Airflow logs to CloudWatch, and metrics to Container Insight
-• 04-setup-alb-ingress.sh, which deploys an Amazon Application Load Balancer as an Apache Airflow web ingress
-• 05-setup-airflow.sh, deploy Apache Airflow on Amazon EKS
+We have prepared 6 bash scripts to deploy the Airflow environment:  
+• 00-check-requirements.sh, checks the system environment  
+• 01-setup-infra.sh, deploy the infrastructure in this solution, such as VPC, Amazon EKS Cluster, Amazon Aurora for PostgreSQL, Amazon ElastiCache for Redis, etc  
+• 02-setup-karpenter.sh, deploy Karpenter on Amazon EKS, and dynamically expand new EC2 resources through Karpenter  
+• 03-setup-cloudwatch.sh, deploy Amazon CloudWatch related resources, Airflow logs to CloudWatch, and metrics to Container Insight  
+• 04-setup-alb-ingress.sh, which deploys an Amazon Application Load Balancer as an Apache Airflow web ingress  
+• 05-setup-airflow.sh, deploy Apache Airflow on Amazon EKS  
 
 Please follow the follwing steps to set up Airflow Cluster.
 
@@ -99,42 +99,42 @@ Please follow the follwing steps to set up Airflow Cluster.
     ``` 
         bash 00-check-requirements.sh
     ```   
-3. Preapre the AWS infrastracture, including VPC, EKS, Aurora, ElastiCache and etc. This step takes around 40 minutes. Before running this script, please change Aurora password in line 132.
-    ``` 
+3. Preapre the AWS infrastracture, including VPC, EKS, Aurora, ElastiCache and etc. This step takes around 40 minutes. Before running this script, please change Aurora password in line 132.  
+    ```   
         bash 01-setup-infra.sh
-    ```
-4. Set up Karpenter, Karpenter automatically launches just the right compute nodes to handle your EKS cluster's applications.
-    ``` 
+    ```    
+4. Set up Karpenter, Karpenter automatically launches just the right compute nodes to handle your EKS cluster's applications.  
+    ```   
         bash 02-setup-karpenter.sh
-    ```
-5. Set up CloudWatch for Airflow logs and metrics.
-    ``` 
-        bash 03-setup-cloudwatch.sh
-    ```
-6. Set up ALB ingress, Application Load Balancer (ALB) is provisioned that load balances traffic for Airflow Web UI. 
+    ```  
+5. Set up CloudWatch for Airflow logs and metrics.  
+    ```   
+        bash 03-setup-cloudwatch.sh  
+    ```    
+6. Set up ALB ingress, Application Load Balancer (ALB) is provisioned that load balances traffic for Airflow Web UI.   
     ``` 
         bash 04-setup-alb-ingress.sh
     ```
 
-7. Set up Airflow, before running this script, please change Aurora password in line 60 and 64 of 05-setup-airflow.sh. In the resources/values.yaml.custom, please change Airflow web console's password in line 892.
+7. Set up Airflow, before running this script, please change Aurora password in line 60 and 64 of 05-setup-airflow.sh. In the resources/values.yaml.custom, please change Airflow web console's password in line 892.  
     ``` 
         bash 05-setup-airflow.shh
     ```
     
-After the above deoloyment, you can see the Airflow's components.
+After the above deoloyment, you can see the Airflow's components.  
 ![](./images/airflow-component.png)
 
 ### Use Apache Airflow
 
-1. After the above deployment is completed, we go to EC2 ---> Load Balancers to find the entrance of the Airflow web interface.
+1. After the above deployment is completed, we go to EC2 ---> Load Balancers to find the entrance of the Airflow web interface.  
 
 ![](./images/airflow-ui-loadbalancer.png)
 
-2. Enter the ALB's DNS address in the browser, and log in with the Airflow username and password you set during deployment.
+2. Enter the ALB's DNS address in the browser, and log in with the Airflow username and password you set during deployment.  
 
 ![](./images/airflow-ui.png)
 
-3. Now there is no executable Dag file in our Airflow, we can upload dags/example_dag.py in our code to CodeCommit. For how to upload, please refer to Uploading files to Amazon CodeCommit. After uploading, we will see the Dag file in Airflow, click Trigger Dags to run.
+3. Now there is no executable Dag file in our Airflow, we can upload dags/example_dag.py in our code to CodeCommit. For how to upload, please refer to Uploading files to Amazon CodeCommit. After uploading, we will see the Dag file in Airflow, click Trigger Dags to run.  
 
 ![](./images/airflow-dags.png)
 
