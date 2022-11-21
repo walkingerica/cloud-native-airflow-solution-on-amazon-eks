@@ -140,7 +140,7 @@ After the above deoloyment, you can see the Airflow's components.
 
 ![](./images/airflow-ui.png)
 
-3. Now there is no executable Dag file in our Airflow, we can upload dags/example_dag.py in our code to CodeCommit. For how to upload, please refer to Uploading files to Amazon CodeCommit. After uploading, we will see the Dag file in Airflow, click Trigger Dags to run.  
+3. Now there is no executable Dag file in our Airflow, we can upload dags/example_dag.py in our code to CodeCommit. For how to upload, please refer to Uploading files to Amazon CodeCommit(https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-create-file.html). After uploading, we will see the Dag file in Airflow, click Trigger Dags to run.  
 
 ![](./images/airflow-dags.png)
 
