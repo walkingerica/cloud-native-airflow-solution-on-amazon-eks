@@ -84,6 +84,8 @@ We have prepared 6 bash scripts to deploy the Airflow environment.
 • 04-setup-alb-ingress.sh, which deploys an Amazon Application Load Balancer as an Apache Airflow web  ngress.
 • 05-setup-airflow.sh, deploy Apache Airflow on Amazon EKS.
 
+Please follow the follwing steps to set up Airflow Cluster.
+
 1. Set up an Graviton2 EC2 bastion host, this instance has two function.
     - Build your ARM images
     - Deploy the following Airflow stack 
