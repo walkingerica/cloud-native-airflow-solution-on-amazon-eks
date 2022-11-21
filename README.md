@@ -129,7 +129,7 @@ Please follow the follwing steps to set up Airflow Cluster.
         bash 05-setup-airflow.shh
     ```
     
-After the above deoloyment, you can see the Airflow's components.  
+After the above deployment, you can see the Airflow's components.  
 ![](./images/airflow-component.png)
 
 ### Use Apache Airflow
