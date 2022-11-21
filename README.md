@@ -125,14 +125,19 @@ After the above deoloyment, you can see the Airflow's components.
 ![](./images/airflow-component.png)
 
 ### Use Apache Airflow
-After the above deployment is completed, we go to EC2 ---> Load Balancers to find the entrance of the Airflow web interface.
+
+1. After the above deployment is completed, we go to EC2 ---> Load Balancers to find the entrance of the Airflow web interface.
+
 ![](./images/airflow-ui-loadbalancer.png)
 
-Enter the ALB's DNS address in the browser, and log in with the Airflow username and password you set during deployment.
+2. Enter the ALB's DNS address in the browser, and log in with the Airflow username and password you set during deployment.
+
 ![](./images/airflow-ui.png)
 
-Now there is no executable Dag file in our Airflow, we can upload dags/example_dag.py in our code to CodeCommit. For how to upload, please refer to Uploading files to Amazon CodeCommit. After uploading, we will see the Dag file in Airflow, click Trigger Dags to run.
+3. Now there is no executable Dag file in our Airflow, we can upload dags/example_dag.py in our code to CodeCommit. For how to upload, please refer to Uploading files to Amazon CodeCommit. After uploading, we will see the Dag file in Airflow, click Trigger Dags to run.
+
 ![](./images/airflow-dags.png)
+
 
 ## Limitations
 1. The solution now supports Beijing Region 
