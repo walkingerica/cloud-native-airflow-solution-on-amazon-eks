@@ -4,7 +4,7 @@ The solution is for deploying high reliable Apache Airflow(https://airflow.apach
 
 ##  Target Audience
 Who needs 
-- A One-Click Ariflow Soltuion on Amazon EKS
+- A One-Click Airflow Soltuion on Amazon EKS
 - A High Available and Cloud Native Soltuion
 - A Less Operation Effort solution via AWS managed service
 
