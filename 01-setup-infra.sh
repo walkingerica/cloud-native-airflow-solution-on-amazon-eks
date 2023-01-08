@@ -4,8 +4,8 @@
 
 CLUSTER_NAME=airflow
 AWS_REGION=cn-north-1
-NODEGROUP_NAME=ng-arm64-airflow
-VPC_CIDR="10.1.0.0/16"
+NODEGROUP_NAME=ng-airflow
+VPC_CIDR="10.100.0.0/16"
 
 
 ##############################
@@ -17,7 +17,7 @@ DB_PRIVATE_CIDR2="$(echo $VPC_CIDR | cut -d"." -f1-2).202.0/24"
 
 eksctl create cluster --name ${CLUSTER_NAME} \
   --region ${AWS_REGION}  --with-oidc \
-  --version 1.23 --node-type m6g.xlarge \
+  --version 1.23 --node-type m5.large \
   --alb-ingress-access --node-private-networking \
   --nodegroup-name ${NODEGROUP_NAME} --vpc-cidr ${VPC_CIDR} \
   --vpc-nat-mode HighlyAvailable
@@ -129,7 +129,7 @@ db_endpoint=$(aws rds create-db-cluster --region $AWS_REGION \
   --engine aurora-postgresql \
   --engine-version 14.3 \
   --master-username postgres \
-  --master-user-password <YOUR_DATABASE_PASSWORD> \
+  --master-user-password <YOUR_PASSWORD> \
   --storage-encrypted \
   --vpc-security-group-ids $db_security_group_id \
   --query 'DBCluster.Endpoint' --output text)
@@ -137,13 +137,13 @@ db_endpoint=$(aws rds create-db-cluster --region $AWS_REGION \
 aws rds create-db-instance --region $AWS_REGION \
   --db-instance-identifier ${CLUSTER_NAME}-db-writer \
   --engine aurora-postgresql \
-  --db-instance-class db.r6g.xlarge \
+  --db-instance-class db.r5.large \
   --db-cluster-identifier ${CLUSTER_NAME}-db-cluster
 
 aws rds create-db-instance --region $AWS_REGION \
   --db-instance-identifier ${CLUSTER_NAME}-db-read01 \
   --engine aurora-postgresql \
-  --db-instance-class db.r6g.xlarge \
+  --db-instance-class db.r5.large \
   --db-cluster-identifier ${CLUSTER_NAME}-db-cluster
 
 ## create elasticache redis
@@ -174,7 +174,7 @@ aws elasticache create-replication-group \
     --region $AWS_REGION \
     --engine redis \
     --engine-version 6.2 \
-    --cache-node-type cache.r6g.large \
+    --cache-node-type cache.r5.large \
     --multi-az-enabled \
     --replicas-per-node-group 1 \
     --security-group-ids $redis_security_group_id \
