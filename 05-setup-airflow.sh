@@ -5,24 +5,26 @@
 ## create IAM user CodeCommit cred
 export AWS_ACCOUNT_ID="$(aws sts get-caller-identity --query Account --output text)"
 
-aws codecommit create-repository --repository-name ${CLUSTER_NAME}-dags --region $AWS_REGION
-aws codecommit create-commit \
-  --region $AWS_REGION \
-  --author-name user \
-  --email "user@abc.com" \
-  --repository-name ${CLUSTER_NAME}-dags \
-  --branch-name master \
-  --put-files "filePath=readme.md,fileContent='Welcome to Airflow DAGs repository.'"
+# aws codecommit create-repository --repository-name ${CLUSTER_NAME}-dags --region $AWS_REGION
+# aws codecommit create-commit \
+#   --region $AWS_REGION \
+#   --author-name user \
+#   --email "user@abc.com" \
+#   --repository-name ${CLUSTER_NAME}-dags \
+#   --branch-name master \
+#   --put-files "filePath=readme.md,fileContent='Welcome to Airflow DAGs repository.'"
 
-AWS_IAM_USER=$(aws sts get-caller-identity --query Arn --output text | cut -d'/' -f2)
-output=$(aws iam create-service-specific-credential --user-name $AWS_IAM_USER \
-  --service-name codecommit.amazonaws.com \
-  --query 'ServiceSpecificCredential.{user:ServiceUserName,password:ServicePassword}' \
-  --output text)
+# AWS_IAM_USER=$(aws sts get-caller-identity --query Arn --output text | cut -d'/' -f2)
+# output=$(aws iam create-service-specific-credential --user-name $AWS_IAM_USER \
+#   --service-name codecommit.amazonaws.com \
+#   --query 'ServiceSpecificCredential.{user:ServiceUserName,password:ServicePassword}' \
+#   --output text)
 
-export GIT_USER=$(echo $output | cut -d" " -f2)
-export GIT_PASS=$(echo $output | cut -d" " -f1)
+# export GIT_USER=$(echo $output | cut -d" " -f2)
+# export GIT_PASS=$(echo $output | cut -d" " -f1)
 
+export GIT_USER="walkingerica"
+export GIT_PASS="<YOUR_PASSWORD>"
 
 ## create cloudwatch log group for Airflow
 aws logs create-log-group --log-group-name /apache/airflow-logs --region $AWS_REGION
@@ -57,11 +59,11 @@ EOF
 
 kubectl create secret generic airflow-db \
    -n airflow \
-   --from-literal=connection=postgresql://postgres:<YOUR_DATABASE_PASSWORD>@${DB_ENDPOINT}:5432/postgres
+   --from-literal=connection=postgresql://postgres:<YOUR_PASSWORD>@${DB_ENDPOINT}:5432/postgres
 
 kubectl create secret generic airflow-result-db \
    -n airflow \
-   --from-literal=connection=db+postgresql://postgres:<YOUR_DATABASE_PASSWORD>@${DB_ENDPOINT}:5432/postgres
+   --from-literal=connection=db+postgresql://postgres:<YOUR_PASSWORD>@${DB_ENDPOINT}:5432/postgres
 
 kubectl create secret generic git-credentials \
   -n airflow \
@@ -80,9 +82,9 @@ helm install keda kedacore/keda \
   --create-namespace \
   --version "v2.0.0" \
   --set image.keda.repository=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com.cn/kedacore/keda \
-  --set image.keda.tag=v2.0.0-arm \
+  --set image.keda.tag=keda-x86-official-v2.0.0 \
   --set image.metricsApiServer.repository=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com.cn/kedacore/keda-metrics-apiserver \
-  --set image.metricsApiServer.tag=v2.0.0-arm64 --timeout 1m0s
+  --set image.metricsApiServer.tag=keda-metrics-apiserver-x86-offcial-v2.0.0 --timeout 1m0s
 
 cat resources/values.yaml.tpl | envsubst \
   | helm upgrade --install airflow apache-airflow/airflow \
