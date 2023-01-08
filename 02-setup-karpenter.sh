@@ -2,7 +2,7 @@
 
 . ./99-set-env.sh
 
-export KARPENTER_VERSION=v0.16.1
+export KARPENTER_VERSION=v0.21.1
 export AWS_ACCOUNT_ID="$(aws sts get-caller-identity --query Account --output text)"
 export AWS_DEFAULT_REGION=$AWS_REGION
 
@@ -27,7 +27,6 @@ eksctl create iamidentitymapping \
   --group system:bootstrappers \
   --group system:nodes
 
-
 eksctl create iamserviceaccount \
   --cluster "${CLUSTER_NAME}" --name karpenter --namespace karpenter \
   --role-name "${CLUSTER_NAME}-karpenter" \
@@ -38,18 +37,26 @@ eksctl create iamserviceaccount \
 export KARPENTER_IAM_ROLE_ARN="arn:aws-cn:iam::${AWS_ACCOUNT_ID}:role/${CLUSTER_NAME}-karpenter"
 export CLUSTER_ENDPOINT="$(aws eks describe-cluster --name ${CLUSTER_NAME} --query "cluster.endpoint" --output text)"
 
-helm repo add karpenter https://charts.karpenter.sh/
-helm repo add eks https://aws.github.io/eks-charts
-#helm repo update
+# helm repo add karpenter https://charts.karpenter.sh/
+# helm repo add eks https://aws.github.io/eks-charts
+# #helm repo update
 
-helm upgrade --install --namespace karpenter --create-namespace \
-  karpenter karpenter/karpenter \
-  --version ${KARPENTER_VERSION} \
+# helm upgrade --install --namespace karpenter --create-namespace \
+#   karpenter karpenter/karpenter \
+#   --version ${KARPENTER_VERSION} \
+#   --set serviceAccount.annotations."eks\.amazonaws\.com/role-arn"=${KARPENTER_IAM_ROLE_ARN} \
+#   --set clusterName=${CLUSTER_NAME} \
+#   --set clusterEndpoint=${CLUSTER_ENDPOINT} \
+#   --set aws.defaultInstanceProfile=KarpenterNodeInstanceProfile-${CLUSTER_NAME} \
+#   --wait # for the defaulting webhook to install before creating a Provisioner
+
+helm upgrade --install karpenter oci://public.ecr.aws/karpenter/karpenter --version ${KARPENTER_VERSION} --namespace karpenter --create-namespace \
   --set serviceAccount.annotations."eks\.amazonaws\.com/role-arn"=${KARPENTER_IAM_ROLE_ARN} \
-  --set clusterName=${CLUSTER_NAME} \
-  --set clusterEndpoint=${CLUSTER_ENDPOINT} \
-  --set aws.defaultInstanceProfile=KarpenterNodeInstanceProfile-${CLUSTER_NAME} \
-  --wait # for the defaulting webhook to install before creating a Provisioner
+  --set settings.aws.clusterName=${CLUSTER_NAME} \
+  --set settings.aws.clusterEndpoint=${CLUSTER_ENDPOINT} \
+  --set settings.aws.defaultInstanceProfile=KarpenterNodeInstanceProfile-${CLUSTER_NAME} \
+  --set settings.aws.interruptionQueueName=${CLUSTER_NAME} \
+  --wait
 
 
 helm upgrade --install --namespace aws-node-termination-handler --create-namespace \
@@ -77,13 +84,13 @@ spec:
       values: ["on-demand"]
     - key: karpenter.k8s.aws/instance-family
       operator: In
-      values: [m6g, c6g]
+      values: [m5, c5]
     - key: karpenter.k8s.aws/instance-size
       operator: NotIn
-      values: [nano, micro, small, medium, large]
+      values: [nano, micro, small, medium]
     - key: "kubernetes.io/arch"
       operator: In
-      values: ["arm64"]
+      values: ["amd64"]
   limits:
     resources:
       cpu: 1000
