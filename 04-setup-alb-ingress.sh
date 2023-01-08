@@ -17,9 +17,22 @@ eksctl create iamserviceaccount \
   --approve
 
 helm repo add eks https://aws.github.io/eks-charts
+
+# public ALB
+# helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
+#   -n kube-system \
+#   --set clusterName=$CLUSTER_NAME \
+#   --set serviceAccount.create=false \
+#   --set serviceAccount.name=aws-load-balancer-controller-${CLUSTER_NAME} \
+#   --set image.repository=918309763551.dkr.ecr.cn-north-1.amazonaws.com.cn/amazon/aws-load-balancer-controller
+
+
+# private ALB 
 helm install aws-load-balancer-controller eks/aws-load-balancer-controller \
   -n kube-system \
   --set clusterName=$CLUSTER_NAME \
   --set serviceAccount.create=false \
   --set serviceAccount.name=aws-load-balancer-controller-${CLUSTER_NAME} \
-  --set image.repository=918309763551.dkr.ecr.cn-north-1.amazonaws.com.cn/amazon/aws-load-balancer-controller
+  --set image.repository=918309763551.dkr.ecr.cn-north-1.amazonaws.com.cn/amazon/aws-load-balancer-controller \
+  --set ingressClassParams.spec."scheme"="internal"
+  --set ingressClassParams.spec."scheme"="internal"
