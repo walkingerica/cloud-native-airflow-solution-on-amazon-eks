@@ -55,7 +55,7 @@ airflowVersion: "2.3.4"
 images:
   airflow:
     repository: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com.cn/apache/airflow
-    tag: 2.3.4-amazon-hive-celery-statsd-arm64
+    tag: airflow-x86-official-2.3.4
     pullPolicy: IfNotPresent
   # To avoid images with user code, you can turn this to 'true' and
   # all the 'run-airflow-migrations' and 'wait-for-airflow-migrations' containers/jobs
@@ -82,7 +82,7 @@ images:
     pullPolicy: IfNotPresent
   pgbouncer:
     repository: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com.cn/apache/airflow
-    tag: airflow-pgbouncer-2021.04.28-1.14.0-arm64
+    tag: pgbouncer-x86-official-1.14.0
     pullPolicy: IfNotPresent
   pgbouncerExporter:
     repository: apache/airflow
@@ -90,7 +90,7 @@ images:
     pullPolicy: IfNotPresent
   gitSync:
     repository: ${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com.cn/gcr/git-sync
-    tag: v3.4.0-arm64
+    tag: git-sync-x86-offcial-3.4.0
     pullPolicy: IfNotPresent
 
 # Select certain nodes for airflow pods.
@@ -114,7 +114,7 @@ ingress:
 
     # Annotations for the web Ingress
     annotations: 
-      alb.ingress.kubernetes.io/scheme: internet-facing
+      alb.ingress.kubernetes.io/scheme: internal
       alb.ingress.kubernetes.io/target-type: ip
       alb.ingress.kubernetes.io/healthcheck-path: "/health"
 
@@ -470,7 +470,7 @@ workers:
     cooldownPeriod: 30
 
     # Minimum number of workers created by keda
-    minReplicaCount: 0
+    minReplicaCount: 2
 
     # Maximum number of workers created by keda
     maxReplicaCount: 10
@@ -528,7 +528,7 @@ workers:
 
   # Select certain nodes for airflow worker pods.
   nodeSelector:
-    kubernetes.io/arch: arm64
+    kubernetes.io/arch: amd64
   priorityClassName: ~
   affinity: {}
   # default worker affinity is:
@@ -889,7 +889,7 @@ webserver:
     email: admin@example.com
     firstName: admin
     lastName: user
-    password: <YOUR_AIRFLOWPASSWORD_PASSWORD>
+    password: <YOUR_PASSWORD>
 
   # Launch additional containers into webserver.
   extraContainers: []
@@ -1580,7 +1580,7 @@ dags:
     # ssh examples ssh://git@github.com/apache/airflow.git
     # git@github.com:apache/airflow.git
     # https example: https://github.com/apache/airflow.git
-    repo: https://git-codecommit.${AWS_REGION}.amazonaws.com.cn/v1/repos/${CLUSTER_NAME}-dags
+    repo: https://github.com/walkingerica/airflowdags
     branch: main
     rev: HEAD
     depth: 1
